@@ -41,3 +41,5 @@
 yarn-debug.log*
 .yarn-integrity
 .Ds_Store
+
+echo ".env" >> .gitignore
