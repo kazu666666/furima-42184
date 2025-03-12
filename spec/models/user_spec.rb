@@ -15,11 +15,16 @@ RSpec.describe User, type: :model do
       expect(@user).to be_valid
     end
     it 'emailが正しい形式（@を含む）であれば登録できる' do
-      @user.email = Faker::Internet.unique.email
+      @user.email = 'test@example.com'
       expect(@user).to be_valid
     end
     it 'passwordが6文字以上であれば登録できる' do
       @user.password = 'a00000' 
+      @user.password_confirmation = 'a00000'
+      expect(@user).to be_valid
+    end
+    it 'passwordとpassword_confirmationが一致していれば登録できる' do
+      @user.password = 'a00000'
       @user.password_confirmation = 'a00000'
       expect(@user).to be_valid
     end
