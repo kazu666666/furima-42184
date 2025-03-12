@@ -3,9 +3,43 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   describe 'ユーザー新規登録' do
     before do
-      @user = User.new(nickname: 'TestUser', email: 'test@example.com', password: 'a00000', password_confirmation: 'a00000', first_name: '太郎', last_name: '田中', first_name_kana: 'タロウ', last_name_kana: 'タナカ', birthday: '2000-01-01')
+      @user = FactoryBot.build(:user)
     end
 
+  context '正常系' do
+    it 'すべての情報が正しく入力されていれば登録できる' do
+      expect(@user).to be_valid
+    end
+    it 'nicknameが適切に入力されていれば登録できる' do
+      @user.nickname = 'テストユーザー'
+      expect(@user).to be_valid
+    end
+    it 'emailが正しい形式（@を含む）であれば登録できる' do
+      @user.email = 'test@example.com'
+      expect(@user).to be_valid
+    end
+    it 'passwordが6文字以上であれば登録できる' do
+      @user.password = 'a00000' 
+      @user.password_confirmation = 'a00000'
+      expect(@user).to be_valid
+    end
+    it 'passwordとpassword_confirmationが一致していれば登録できる' do
+      @user.password = 'a00000'
+      @user.password_confirmation = 'a00000'
+      expect(@user).to be_valid
+    end
+    it 'first_nameとlast_nameが全角日本語であれば登録できる' do
+      @user.first_name = '太郎'
+      @user.last_name = '田中'
+      expect(@user).to be_valid
+    end
+    it 'first_name_kanaとlast_name_kanaが全角カタカナであれば登録できる' do
+      @user.first_name_kana = 'タロウ'
+      @user.last_name_kana = 'タナカ'
+      expect(@user).to be_valid
+    end
+  end
+  context '異常系' do
     it 'nicknameが空では登録できない' do
       @user.nickname = ''
       @user.valid?
@@ -58,10 +92,7 @@ RSpec.describe User, type: :model do
     end
     it '重複したemailが存在する場合は登録できない' do
       @user.save
-      another_user = User.new(
-        nickname: 'AnotherUser', email: 'test@example.com', password: 'a00000', password_confirmation: 'a00000',
-        first_name: '花子', last_name: '山田', first_name_kana: 'ハナコ', last_name_kana: 'ヤマダ', birthday: '2000-02-02'
-      )
+      another_user = FactoryBot.build(:user, email: @user.email)
       another_user.valid?
       expect(another_user.errors.full_messages).to include("Email has already been taken")
     end
@@ -80,6 +111,12 @@ RSpec.describe User, type: :model do
     it 'passwordが数字のみだと登録できない' do
       @user.password = '123456'
       @user.password_confirmation = '123456'
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Password is invalid")
+    end
+    it 'passwordに全角文字が含まれていると登録できない' do
+      @user.password = 'ｐａｓｓｗｏｒｄ123'
+      @user.password_confirmation = 'ｐａｓｓｗｏｒｄ123'
       @user.valid?
       expect(@user.errors.full_messages).to include("Password is invalid")
     end
@@ -119,4 +156,5 @@ RSpec.describe User, type: :model do
       expect(@user.errors.full_messages).to include("Last name kana is invalid")
     end
   end
+ end
 end
