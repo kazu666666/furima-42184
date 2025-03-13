@@ -11,11 +11,11 @@ class Item < ApplicationRecord
 
   validates :name,           presence: true, length: { maximum: 40 }
   validates :description,    presence: true, length: { maximum: 1000 }
-  validates :category_id,    presence: true, numericality: { other_than: 0 }
-  validates :status_id,      presence: true, numericality: { other_than: 0 }
-  validates :shipping_id,    presence: true, numericality: { other_than: 0 }
-  validates :prefecture_id,  presence: true, numericality: { other_than: 0 }
-  validates :shipping_day_id,presence: true, numericality: { other_than: 0 }
+  validates :category_id,    presence: true
+  validates :status_id,      presence: true
+  validates :shipping_id,    presence: true
+  validates :prefecture_id,  presence: true
+  validates :shipping_day_id,presence: true 
   validates :price,          presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than: 10_000_000}
 
 end
