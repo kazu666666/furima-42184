@@ -9,6 +9,7 @@ class Item < ApplicationRecord
   belongs_to_active_hash :prefecture
   belongs_to_active_hash :shipping_day
 
+  validates :image,          presence: true
   validates :name,           presence: true, length: { maximum: 40 }
   validates :description,    presence: true, length: { maximum: 1000 }
   validates :category_id,    presence: true
