@@ -17,7 +17,7 @@ const price = () => {
       profitDisplay.innerHTML = "0";
     } else if (!isNaN(price) && price >= 0) {
       const tax = Math.floor(price * 0.1);
-      const profit = price - tax; 
+      const profit = Math.floor(price - tax);
 
       taxDisplay.innerHTML = tax.toLocaleString(); 
       profitDisplay.innerHTML = profit.toLocaleString(); 

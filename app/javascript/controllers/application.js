@@ -1,5 +1,4 @@
 import { Application } from "@hotwired/stimulus"
-import "./item_price";
 
 const application = Application.start()
 

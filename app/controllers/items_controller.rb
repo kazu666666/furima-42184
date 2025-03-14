@@ -1,6 +1,9 @@
 class ItemsController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :create]
+
+
   def index
-    @items = Item.all
+    #@items = Item.all
   end
 
   def create
@@ -16,17 +19,17 @@ class ItemsController < ApplicationController
     @item = Item.new
   end
 
-  def show
-  end
+  #def show
+  #end
 
-  def update
-  end
+  #def update
+  #end
 
-  def edit
-  end
+  #def edit
+  #end
 
-  def destroy
-  end
+  #def destroy
+  #end
 
   private
 
