@@ -19,8 +19,9 @@ class ItemsController < ApplicationController
     @item = Item.new
   end
 
-  #def show
-  #end
+  def show
+    @item = Item.find(params[:id])
+  end
 
   #def update
   #end
