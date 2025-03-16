@@ -39,6 +39,10 @@ class ItemsController < ApplicationController
     @item.destroy
     redirect_to root_path
   end
+  
+  def purchase
+    @order_address = OrderAddress.new
+  end
 
   private
   def set_item
@@ -53,6 +57,14 @@ class ItemsController < ApplicationController
     unless current_user == @item.user
       redirect_to root_path
     end
+  end
+
+  def redirect_if_purchased
+    redirect_to root_path if @item.order.present?
+  end
+
+  def order_params
+    params.require(:order_address).permit(:postal_code, :prefecture_id, :city, :block, :building, :phone_number).merge(user_id: current_user.id, item_id: @item.id )
   end
   
 end
