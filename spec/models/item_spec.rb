@@ -109,33 +109,33 @@ describe '商品出品機能' do
     end
 
     it 'カテゴリーが空では保存できない' do
-      @item.category_id = 1
+      @item.category_id = 0
       @item.valid?
-      expect(@item.errors.full_messages).to include("Category must be other than 1")
+      expect(@item.errors.full_messages).to include("Category must be other than 0")
     end
 
     it '商品の状態が空では保存できない' do
-      @item.status_id = 1
+      @item.status_id = 0
       @item.valid?
-      expect(@item.errors.full_messages).to include("Status must be other than 1")
+      expect(@item.errors.full_messages).to include("Status must be other than 0")
     end
 
     it '配送料の負担が空では保存できない' do
-      @item.shipping_id = 1
+      @item.shipping_id = 0
       @item.valid?
-      expect(@item.errors.full_messages).to include("Shipping must be other than 1")
+      expect(@item.errors.full_messages).to include("Shipping must be other than 0")
     end
 
     it '発送元の地域が空では保存できない' do
-      @item.prefecture_id = 1
+      @item.prefecture_id = 0
       @item.valid?
-      expect(@item.errors.full_messages).to include("Prefecture must be other than 1")
+      expect(@item.errors.full_messages).to include("Prefecture must be other than 0")
     end
 
     it '発送までの日数が空では保存できない' do
-      @item.shipping_day_id = 1
+      @item.shipping_day_id = 0
       @item.valid?
-      expect(@item.errors.full_messages).to include("Shipping day must be other than 1")
+      expect(@item.errors.full_messages).to include("Shipping day must be other than 0")
     end
 
     it '価格が空では保存できない' do

@@ -8,5 +8,6 @@ FactoryBot.define do
     block { '渋谷1-2-3' }
     building { 'ヒカリエ10F' }
     phone_number { '09012345678' }
+    token { "tok_abcdefghijk00000000000000000" }
   end
 end
