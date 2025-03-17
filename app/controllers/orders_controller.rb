@@ -1,7 +1,8 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_item
-  before_action :redirect_if_invalid_access
+  before_action :redirect_if_purchased
+  before_action :redirect_if_seller
 
   def index
     @order_address = OrderAddress.new
@@ -9,11 +10,11 @@ class OrdersController < ApplicationController
 
   def create
     @order_address = OrderAddress.new(order_params)
-    if @order_address.valid?
+    if @order_address.valid? 
       @order_address.save
       redirect_to root_path
     else
-      render :index
+      render :index, status: :unprocessable_entity
     end
   end
 
@@ -28,11 +29,12 @@ class OrdersController < ApplicationController
     @item = Item.find(params[:item_id])
   end
 
-  def redirect_if_invalid_access
-    if @item.order.present? 
-      redirect_to root_path
-    elsif current_user.id == @item.user_id 
-      redirect_to root_path
-    end
+  def redirect_if_purchased
+    redirect_to root_path if @item.order.present?
   end
+
+  def redirect_if_seller
+    redirect_to root_path if @item.user_id == current_user.id
+  end
+
 end
