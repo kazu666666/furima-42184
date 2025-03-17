@@ -33,6 +33,8 @@
 
         <%= render 'shared/error_messages', model: @order_address %>
 
+   <%= include_gon %>     
+
     <%= form_with model: @order_address, url: item_orders_path(@item), id: 'charge-form', class: 'transaction-form-wrap',local: true do |f| %>
     <%# カード情報の入力 %>
     <div class='credit-card-form'>

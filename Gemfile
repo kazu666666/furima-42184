@@ -86,3 +86,7 @@ gem 'image_processing', '~> 1.2'
 gem "faker", "~> 3.5"
 
 gem 'pry-rails'
+
+gem 'payjp'
+
+gem 'gon'

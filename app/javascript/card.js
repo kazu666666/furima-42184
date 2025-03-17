@@ -2,7 +2,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("charge-form");
   if (!form) return;
 
-  const payjp = Payjp('');
+  const publicKey = gon.public_key
+  const payjp = Payjp(publicKey)
   const elements = payjp.elements();
   const numberElement = elements.create("cardNumber");
   const expiryElement = elements.create("cardExpiry");
@@ -34,3 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
     form.submit();
   });
 });
+
+window.addEventListener("turbo:load", pay);
+window.addEventListener("turbo:render", pay);
